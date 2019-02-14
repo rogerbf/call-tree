@@ -1,0 +1,52 @@
+{
+  "name": "call-tree",
+  "version": "1.0.0",
+  "description": "call an object with deeply nested functions",
+  "main": "build/call-tree.cjs.js",
+  "module": "build/call-tree.esm.js",
+  "browser": "build/call-tree.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "pretest": "npm run build",
+    "test": "jest",
+    "test:development": "NODE_ENV=development jest",
+    "develop": "npm run test:development -- --watch",
+    "coverage": "npm run test:development -- --coverage"
+  },
+  "keywords": [
+    "call",
+    "tree",
+    "object",
+    "reducer",
+    "deep"
+  ],
+  "files": [
+    "build"
+  ],
+  "author": "rogerbf <roger@bergfa.lk> (https://bergfa.lk/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "7.2.2",
+    "@babel/plugin-transform-modules-commonjs": "7.2.0",
+    "@babel/preset-env": "7.3.1",
+    "babel-jest": "24.1.0",
+    "eslint": "5.13.0",
+    "jest": "24.1.0",
+    "mask-properties": "1.0.0",
+    "rollup": "1.1.2",
+    "rollup-plugin-babel": "4.3.2",
+    "rollup-plugin-commonjs": "9.2.0",
+    "rollup-plugin-node-resolve": "4.0.0",
+    "simple-difference": "1.0.1"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogerbf/call-tree.git"
+  },
+  "homepage": "https://github.com/rogerbf/call-tree#readme"
+}
