@@ -1,6 +1,6 @@
 {
   "name": "call-tree",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "call an object with deeply nested functions",
   "main": "build/call-tree.cjs.js",
   "module": "build/call-tree.esm.js",
@@ -26,17 +26,17 @@
   "author": "rogerbf <roger@bergfa.lk> (https://bergfa.lk/)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.2.2",
+    "@babel/core": "7.3.3",
     "@babel/plugin-transform-modules-commonjs": "7.2.0",
     "@babel/preset-env": "7.3.1",
     "babel-jest": "24.1.0",
-    "eslint": "5.13.0",
+    "eslint": "5.14.1",
     "jest": "24.1.0",
-    "mask-properties": "1.0.0",
-    "rollup": "1.1.2",
+    "mask-properties": "1.0.1",
+    "rollup": "1.2.2",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.2.0",
-    "rollup-plugin-node-resolve": "4.0.0",
+    "rollup-plugin-node-resolve": "4.0.1",
     "simple-difference": "1.0.1"
   },
   "directories": {
