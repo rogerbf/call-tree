@@ -1,4 +1,4 @@
-import { call, concat, create, omit } from "../build/call-tree.cjs"
+import { call, concat, create, includes, omit } from "../"
 
 describe(`create`, () => {
   test(`typeof`, () => {
@@ -21,5 +21,11 @@ describe(`concat`, () => {
 describe(`omit`, () => {
   test(`typeof`, () => {
     expect(typeof omit).toBe(`function`)
+  })
+})
+
+describe(`includes`, () => {
+  test(`typeof`, () => {
+    expect(typeof includes).toBe(`function`)
   })
 })
