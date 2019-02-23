@@ -78,4 +78,14 @@ describe(`includes`, () => {
 
     expect(includes({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, fnB)).toEqual(true)
   })
+
+  test(`({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, { a: { c: { d: fnB } } } )`, () => {
+    const fn = () => {}
+    const fnA = () => {}
+    const fnB = () => {}
+
+    expect(
+      includes({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, { a: { c: { d: fnB } } })
+    ).toEqual(true)
+  })
 })
