@@ -1,11 +1,13 @@
 {
   "name": "call-tree",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "call an object with deeply nested functions",
   "main": "build/call-tree.cjs.js",
   "module": "build/call-tree.esm.js",
   "browser": "build/call-tree.umd.js",
   "scripts": {
+    "clean": "rimraf build coverage",
+    "prepare": "npm run clean && npm test",
     "build": "rollup -c",
     "pretest": "npm run build",
     "test": "jest",
@@ -33,9 +35,10 @@
     "eslint": "5.14.1",
     "jest": "24.1.0",
     "mask-properties": "1.0.1",
-    "rollup": "1.2.2",
+    "rimraf": "2.6.3",
+    "rollup": "1.2.3",
     "rollup-plugin-babel": "4.3.2",
-    "rollup-plugin-commonjs": "9.2.0",
+    "rollup-plugin-commonjs": "9.2.1",
     "rollup-plugin-node-resolve": "4.0.1",
     "simple-difference": "1.0.1"
   },
