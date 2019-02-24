@@ -74,3 +74,24 @@ omit(
 )
 // { x: a }
 ```
+
+### `includes(tree, branch)`
+
+```javascript
+import { includes } from "call-tree"
+
+const e = () => {}
+const f = () => {}
+
+const tree = {
+  a: {
+    b: () => {}
+  },
+  c: {
+    d: [ { e } ]
+  }
+}
+
+includes(tree, e) // true
+includes(tree, f) // false
+```
