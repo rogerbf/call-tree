@@ -2,30 +2,30 @@ import call from "./library/call"
 import concat from "./library/concat"
 import omit from "./library/omit"
 
-const create = (tree = {}) => {
-  const instance = (...args) => call(tree, ...args)
+const create = (data = {}) => {
+  const tree = (...args) => call(data, ...args)
 
-  Object.assign(instance, {
+  Object.assign(tree, {
     attach(...branches) {
-      tree = concat(tree, ...branches)
+      data = concat(data, ...branches)
 
-      return instance
+      return tree
     },
 
     detach(...branches) {
-      tree = omit(tree, ...branches)
+      data = omit(data, ...branches)
 
-      return instance
-    },
-  })
-
-  Object.defineProperty(instance, `current`, {
-    get() {
       return tree
     },
   })
 
-  return instance
+  Object.defineProperty(tree, `current`, {
+    get() {
+      return data
+    },
+  })
+
+  return tree
 }
 
 export default create
