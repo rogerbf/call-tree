@@ -95,3 +95,34 @@ const tree = {
 includes(tree, e) // true
 includes(tree, f) // false
 ```
+
+### `map(tree, callback((fn, path) => {})`
+
+```javascript
+import { map } from "call-tree"
+
+const tree = {
+  a: {
+    b: path => path,
+  },
+  c: {
+    d: [ { e: path => path } ],
+  },
+}
+
+const callback = (fn, path) => fn(path)
+
+console.log(map(tree, callback))
+// {
+//   a: {
+//     b: [ `a`, `b` ],
+//   },
+//   c: {
+//     d: [
+//       {
+//         e: [ `c`, `d`, `e` ],
+//       },
+//     ],
+//   },
+// }
+```
