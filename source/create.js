@@ -1,27 +1,79 @@
+import { difference } from "simple-difference"
 import call from "./library/call"
 import concat from "./library/concat"
+import map from "./library/map"
 import omit from "./library/omit"
 
-const create = (data = {}) => {
-  const tree = (...args) => call(data, ...args)
+const toString = value => Object.prototype.toString.call(value)
 
-  Object.assign(tree, {
-    attach(...branches) {
-      data = concat(data, ...branches)
+const OBJECT = toString({})
+
+const wrap = branch => (...args) => branch(...args)
+
+const create = (initial = {}) => {
+  let current = initial
+  let next = current
+
+  const snapshot = () => {
+    if (difference(next, current) === null) {
+      next = { ...current }
+    }
+  }
+
+  const attach = tree => {
+    const type = toString(tree)
+
+    if (type !== OBJECT) {
+      throw new Error(`Expected ${ OBJECT }, received ${ type }.`)
+    }
+
+    let attached = true
+
+    snapshot()
+
+    const wrapped = map(tree, wrap)
+
+    next = concat(next, wrapped)
+
+    return () => {
+      if (!attached) {
+        return void 0
+      }
+
+      attached = false
+
+      snapshot()
+
+      next = omit(next, wrapped)
 
       return tree
-    },
+    }
+  }
 
-    detach(...branches) {
-      data = omit(data, ...branches)
+  const prepare = fn => {
+    current = next
 
-      return tree
-    },
+    const tree = fn(current)
+
+    return call.bind(null, tree)
+  }
+
+  const _call = (...args) => {
+    current = next
+
+    return call(current, ...args)
+  }
+
+  const tree = Object.assign(_call, {
+    attach,
+    prepare,
   })
 
   Object.defineProperty(tree, `current`, {
     get() {
-      return data
+      current = next
+
+      return current
     },
   })
 
