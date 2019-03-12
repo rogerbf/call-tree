@@ -6,7 +6,11 @@ describe(`map`, () => {
   })
 
   test(`()`, () => {
-    expect(map({})).toEqual({})
+    expect(map()).toEqual({})
+  })
+
+  test(`('')`, () => {
+    expect(map(``)).toEqual(``)
   })
 
   test(`({ a: () => {} })`, () => {
