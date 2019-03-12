@@ -1,4 +1,4 @@
-import { call, concat, create, includes, omit } from "../"
+import { call, concat, create, includes, map, omit } from "../"
 
 describe(`create`, () => {
   test(`typeof`, () => {
@@ -27,5 +27,11 @@ describe(`omit`, () => {
 describe(`includes`, () => {
   test(`typeof`, () => {
     expect(typeof includes).toBe(`function`)
+  })
+})
+
+describe(`map`, () => {
+  test(`typeof`, () => {
+    expect(typeof map).toBe(`function`)
   })
 })
