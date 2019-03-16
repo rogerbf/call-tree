@@ -64,9 +64,17 @@ const create = (initial = {}) => {
     return call(current, ...args)
   }
 
+  const clear = () => {
+    next = {}
+    current = next
+
+    return tree
+  }
+
   const tree = Object.assign(_call, {
     attach,
     prepare,
+    clear,
   })
 
   Object.defineProperty(tree, `current`, {

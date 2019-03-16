@@ -11,6 +11,7 @@ describe(`create`, () => {
     expect(typeof tree).toEqual(`function`)
     expect(typeof tree.attach).toEqual(`function`)
     expect(typeof tree.prepare).toEqual(`function`)
+    expect(typeof tree.clear).toEqual(`function`)
     expect(tree.hasOwnProperty(`current`)).toEqual(true)
   })
 
@@ -283,5 +284,18 @@ describe(`create`, () => {
     expect(listener.mock.calls.length).toBe(3)
     expect(listener.mock.calls[1]).toEqual([ `a` ])
     expect(listener.mock.calls[2]).toEqual([ `b` ])
+  })
+
+  test(`clear`, () => {
+    const tree = create()
+    const listener = jest.fn()
+
+    tree.attach({ a: listener })
+
+    expect(tree.current).toEqual({ a: expect.any(Function) })
+
+    tree.clear()
+
+    expect(tree.current).toEqual({})
   })
 })
