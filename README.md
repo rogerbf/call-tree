@@ -32,6 +32,10 @@ tree(parameters)
 
 #### `.attach([ ...branches ])`
 
+#### `.prepare(fn)`
+
+#### `.clear()`
+
 #### `.current`
 
 ### `call(tree[,parameters[, ...args ]])`
