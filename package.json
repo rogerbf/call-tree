@@ -1,6 +1,6 @@
 {
   "name": "call-tree",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "call an object with deeply nested functions",
   "main": "build/call-tree.cjs.js",
   "module": "build/call-tree.esm.js",
@@ -33,7 +33,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.2.0",
     "@babel/preset-env": "7.3.4",
     "babel-jest": "24.5.0",
-    "eslint": "5.15.1",
+    "eslint": "5.15.2",
     "jest": "24.5.0",
     "mask-properties": "1.0.1",
     "rimraf": "2.6.3",
