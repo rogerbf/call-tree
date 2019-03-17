@@ -1,4 +1,4 @@
-import create from "../../source/create"
+import create from '../../source/create'
 
 describe(`create`, () => {
   it(`is a function`, () => {
@@ -39,7 +39,7 @@ describe(`create`, () => {
     const listenerA = jest.fn()
     const listenerB = jest.fn()
 
-    let unattachA = tree.attach({ a: listenerA })
+    let detachA = tree.attach({ a: listenerA })
     tree()
     expect(listenerA.mock.calls.length).toBe(1)
     expect(listenerB.mock.calls.length).toBe(0)
@@ -48,7 +48,7 @@ describe(`create`, () => {
     expect(listenerA.mock.calls.length).toBe(2)
     expect(listenerB.mock.calls.length).toBe(0)
 
-    const unattachB = tree.attach({ b: listenerB })
+    const detachB = tree.attach({ b: listenerB })
     expect(listenerA.mock.calls.length).toBe(2)
     expect(listenerB.mock.calls.length).toBe(0)
 
@@ -56,7 +56,7 @@ describe(`create`, () => {
     expect(listenerA.mock.calls.length).toBe(3)
     expect(listenerB.mock.calls.length).toBe(1)
 
-    unattachA()
+    detachA()
     expect(listenerA.mock.calls.length).toBe(3)
     expect(listenerB.mock.calls.length).toBe(1)
 
@@ -64,7 +64,7 @@ describe(`create`, () => {
     expect(listenerA.mock.calls.length).toBe(3)
     expect(listenerB.mock.calls.length).toBe(2)
 
-    unattachB()
+    detachB()
     expect(listenerA.mock.calls.length).toBe(3)
     expect(listenerB.mock.calls.length).toBe(2)
 
@@ -72,7 +72,7 @@ describe(`create`, () => {
     expect(listenerA.mock.calls.length).toBe(3)
     expect(listenerB.mock.calls.length).toBe(2)
 
-    unattachA = tree.attach({ a: listenerA })
+    detachA = tree.attach({ a: listenerA })
     expect(listenerA.mock.calls.length).toBe(3)
     expect(listenerB.mock.calls.length).toBe(2)
 
@@ -82,17 +82,17 @@ describe(`create`, () => {
   })
 
   // https://github.com/reduxjs/redux/blob/792ac5ae541a7c0792908df8f4e2da334184e74f/test/createStore.spec.js#L243
-  it(`only removes listener once when unattach is called`, () => {
+  it(`only removes listener once when detach is called`, () => {
     const tree = create()
 
     const listenerA = jest.fn()
     const listenerB = jest.fn()
 
-    const unattachA = tree.attach({ a: listenerA })
+    const detachA = tree.attach({ a: listenerA })
     tree.attach({ b: listenerB })
 
-    unattachA()
-    unattachA()
+    detachA()
+    detachA()
 
     tree()
     expect(listenerA.mock.calls.length).toBe(0)
@@ -100,16 +100,16 @@ describe(`create`, () => {
   })
 
   // https://github.com/reduxjs/redux/blob/792ac5ae541a7c0792908df8f4e2da334184e74f/test/createStore.spec.js#L259
-  it(`only removes relevant listener when unattach is called`, () => {
+  it(`only removes relevant listener when detach is called`, () => {
     const tree = create()
 
     const listener = jest.fn()
 
     tree.attach({ a: listener })
-    const unattachSecond = tree.attach({ a: listener })
+    const detachSecond = tree.attach({ a: listener })
 
-    unattachSecond()
-    unattachSecond()
+    detachSecond()
+    detachSecond()
 
     tree()
     expect(listener.mock.calls.length).toBe(1)
@@ -124,10 +124,10 @@ describe(`create`, () => {
     const listenerC = jest.fn()
 
     tree.attach({ a: listenerA })
-    const unattach = tree.attach({
+    const detach = tree.attach({
       a: () => {
         listenerB()
-        unattach()
+        detach()
       },
     })
     tree.attach({ a: listenerC })
@@ -141,26 +141,26 @@ describe(`create`, () => {
   })
 
   // https://github.com/reduxjs/redux/blob/792ac5ae541a7c0792908df8f4e2da334184e74f/test/createStore.spec.js#L294
-  it(`notifies all attached listeners about current regardless if any of them gets unattachd in the process`, () => {
+  it(`notifies all attached listeners about current regardless if any of them gets detached in the process`, () => {
     const tree = create()
 
-    const unattachHandles = []
-    const doUnattachAll = () => unattachHandles.forEach(unattach => unattach())
+    const detachHandles = []
+    const detachAll = () => detachHandles.forEach(detach => detach())
 
     const listener1 = jest.fn()
     const listener2 = jest.fn()
     const listener3 = jest.fn()
 
-    unattachHandles.push(tree.attach({ a: () => listener1() }))
-    unattachHandles.push(
+    detachHandles.push(tree.attach({ a: () => listener1() }))
+    detachHandles.push(
       tree.attach({
         a: () => {
           listener2()
-          doUnattachAll()
+          detachAll()
         },
       })
     )
-    unattachHandles.push(tree.attach({ a: () => listener3() }))
+    detachHandles.push(tree.attach({ a: () => listener3() }))
 
     tree()
     expect(listener1.mock.calls.length).toBe(1)
@@ -217,8 +217,8 @@ describe(`create`, () => {
     const listener3 = jest.fn()
     const listener4 = jest.fn()
 
-    let unattach4
-    const unattach1 = tree.attach({
+    let detach4
+    const detach1 = tree.attach({
       a: () => {
         listener1()
         expect(listener1.mock.calls.length).toBe(1)
@@ -226,8 +226,8 @@ describe(`create`, () => {
         expect(listener3.mock.calls.length).toBe(0)
         expect(listener4.mock.calls.length).toBe(0)
 
-        unattach1()
-        unattach4 = tree.attach({ a: listener4 })
+        detach1()
+        detach4 = tree.attach({ a: listener4 })
         tree()
 
         expect(listener1.mock.calls.length).toBe(1)
@@ -245,7 +245,7 @@ describe(`create`, () => {
     expect(listener3.mock.calls.length).toBe(2)
     expect(listener4.mock.calls.length).toBe(1)
 
-    unattach4()
+    detach4()
     tree()
     expect(listener1.mock.calls.length).toBe(1)
     expect(listener2.mock.calls.length).toBe(3)
@@ -295,6 +295,28 @@ describe(`create`, () => {
     expect(tree.current).toEqual({ a: expect.any(Function) })
 
     tree.clear()
+
+    expect(tree.current).toEqual({})
+  })
+
+  test(`current`, () => {
+    const tree = create()
+    const listener = jest.fn()
+
+    const removeFirst = tree.attach({ a: listener })
+    const removeSecond = tree.attach({ a: listener })
+
+    expect(tree.current).toEqual({ a: [ listener, listener ] })
+
+    removeFirst()
+
+    expect(tree.current).toEqual({ a: listener })
+
+    removeFirst()
+
+    expect(tree.current).toEqual({ a: listener })
+
+    removeSecond()
 
     expect(tree.current).toEqual({})
   })

@@ -1,17 +1,26 @@
-import { difference } from "simple-difference"
-import call from "./library/call"
-import concat from "./library/concat"
-import map from "./library/map"
-import omit from "./library/omit"
+import { difference } from 'simple-difference'
+import call from './library/call'
+import concat from './library/concat'
+import map from './library/map'
+import omit from './library/omit'
 
 const toString = value => Object.prototype.toString.call(value)
 
 const OBJECT = toString({})
 
-const wrap = branch => (...args) => branch(...args)
-
 const create = (initial = {}) => {
-  let current = initial
+  let wrappedBranches = new Map()
+
+  const wrap = fn => {
+    const wrapped = (...args) => fn(...args)
+    wrappedBranches.set(wrapped, fn)
+
+    return wrapped
+  }
+
+  const unwrap = wrapped => wrappedBranches.get(wrapped)
+
+  let current = map(initial, wrap)
   let next = current
 
   const snapshot = () => {
@@ -32,7 +41,6 @@ const create = (initial = {}) => {
     snapshot()
 
     const wrapped = map(tree, wrap)
-
     next = concat(next, wrapped)
 
     return () => {
@@ -45,6 +53,7 @@ const create = (initial = {}) => {
       snapshot()
 
       next = omit(next, wrapped)
+      wrappedBranches.delete(wrapped)
 
       return tree
     }
@@ -81,7 +90,7 @@ const create = (initial = {}) => {
     get() {
       current = next
 
-      return current
+      return map(current, unwrap)
     },
   })
 
