@@ -1,4 +1,4 @@
-import create from '../../source/create'
+import create from "../../source/create"
 
 describe(`create`, () => {
   it(`is a function`, () => {
@@ -319,5 +319,35 @@ describe(`create`, () => {
     removeSecond()
 
     expect(tree.current).toEqual({})
+  })
+
+  test(`includes`, () => {
+    const tree = create()
+    const listener = jest.fn()
+
+    const removeFirst = tree.attach({ a: listener })
+    const removeSecond = tree.attach({ a: listener })
+
+    expect(tree.includes(listener)).toEqual(true)
+    expect(tree.includes({ a: listener })).toEqual(true)
+    expect(tree.includes({ b: listener })).toEqual(false)
+
+    removeFirst()
+
+    expect(tree.includes(listener)).toEqual(true)
+    expect(tree.includes({ a: listener })).toEqual(true)
+    expect(tree.includes({ b: listener })).toEqual(false)
+    
+    removeFirst()
+
+    expect(tree.includes(listener)).toEqual(true)
+    expect(tree.includes({ a: listener })).toEqual(true)
+    expect(tree.includes({ b: listener })).toEqual(false)
+
+    removeSecond()
+
+    expect(tree.includes(listener)).toEqual(false)
+    expect(tree.includes({ a: listener })).toEqual(false)
+    expect(tree.includes({ b: listener })).toEqual(false)
   })
 })

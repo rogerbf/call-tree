@@ -1,25 +1,25 @@
-import { difference } from 'simple-difference'
-import call from './library/call'
-import concat from './library/concat'
-import map from './library/map'
-import omit from './library/omit'
+import { difference } from "simple-difference";
+import call from "./library/call";
+import concat from "./library/concat";
+import includes from "./library/includes";
+import map from "./library/map";
+import omit from "./library/omit";
 
 const toString = value => Object.prototype.toString.call(value)
-
 const OBJECT = toString({})
 
 const create = (initial = {}) => {
-  let wrappedBranches = new Map()
-
+  let index = []
+  
   const wrap = fn => {
     const wrapped = (...args) => fn(...args)
-    wrappedBranches.set(wrapped, fn)
-
+    index.push([ wrapped, fn ])
+    
     return wrapped
   }
-
-  const unwrap = wrapped => wrappedBranches.get(wrapped)
-
+  
+  const unwrap = wrapped => index.find(([ w ]) => w === wrapped)[1]
+  
   let current = map(initial, wrap)
   let next = current
 
@@ -29,7 +29,21 @@ const create = (initial = {}) => {
     }
   }
 
-  const attach = tree => {
+  const tree = (...args) => {
+    snapshot()
+
+    return call(next, ...args)
+  }
+
+  Object.defineProperty(tree, `current`, {
+    get() {
+      snapshot()
+
+      return map(next, unwrap)
+    },
+  })
+
+  tree.attach = tree => {
     const type = toString(tree)
 
     if (type !== OBJECT) {
@@ -53,46 +67,36 @@ const create = (initial = {}) => {
       snapshot()
 
       next = omit(next, wrapped)
-      wrappedBranches.delete(wrapped)
+      map(wrapped, fn => index.splice(index.find(([ w ]) => w === fn), 1))
 
       return tree
     }
   }
 
-  const prepare = fn => {
-    current = next
+  tree.prepare = fn => {
+    snapshot()
 
-    const tree = fn(current)
+    const tree = fn(next)
 
     return call.bind(null, tree)
   }
 
-  const _call = (...args) => {
-    current = next
-
-    return call(current, ...args)
-  }
-
-  const clear = () => {
+  tree.clear = () => {
     next = {}
-    current = next
+    snapshot()
 
     return tree
   }
 
-  const tree = Object.assign(_call, {
-    attach,
-    prepare,
-    clear,
-  })
+  tree.includes = x => {
+    snapshot()
 
-  Object.defineProperty(tree, `current`, {
-    get() {
-      current = next
-
-      return map(current, unwrap)
-    },
-  })
+    if (typeof x === `function`) {
+      return Boolean(index.find(([ _, fn ]) => fn === x))
+    } else {
+      return includes(map(next, unwrap), x)
+    }
+  }
 
   return tree
 }
