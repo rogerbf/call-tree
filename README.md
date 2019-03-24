@@ -36,6 +36,8 @@ tree(parameters)
 
 #### `.clear()`
 
+#### `.includes(fn)`
+
 #### `.current`
 
 ### `call(tree[,parameters[, ...args ]])`
