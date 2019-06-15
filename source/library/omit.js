@@ -7,7 +7,7 @@ const FUNCTION = type(Function)
 const omit = (input, redaction) => {
   if (type(input) === OBJECT) {
     return Object.entries(redaction).reduce(
-      (updated, [ key, value ]) => {
+      (updated, [key, value]) => {
         if (updated.hasOwnProperty(key)) {
           if (type(value) === FUNCTION || type(value) === ARRAY) {
             const redacted = [].concat(value)
@@ -30,7 +30,7 @@ const omit = (input, redaction) => {
             if (type(result) === ARRAY) {
               const filtered = result.filter(x =>
                 type(x) === OBJECT
-                  ? Object.entries(x).filter(([ key, value ]) =>
+                  ? Object.values(x).filter(value =>
                       type(value) === OBJECT
                         ? Object.keys(value).length > 0
                         : true
