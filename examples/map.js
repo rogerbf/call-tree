@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 const { map } = require(`../`)
 
 const tree = {
@@ -5,7 +6,7 @@ const tree = {
     b: path => path,
   },
   c: {
-    d: [ { e: path => path } ],
+    d: [{ e: path => path }],
   },
 }
 

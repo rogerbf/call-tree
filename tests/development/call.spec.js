@@ -23,7 +23,7 @@ describe(`call`, () => {
     const tree = {
       version: `1.0.0`,
     }
-    const parameters = { testing: [ 1, 2, 3 ] }
+    const parameters = { testing: [1, 2, 3] }
     const result = call(tree, parameters)
 
     expect(result).toEqual({
@@ -71,8 +71,8 @@ describe(`call`, () => {
 
   test(`calls functions`, () => {
     const counter = jest.fn((parameters = 0) => parameters + 1)
-    const bears = jest.fn((parameters = []) => [ ...parameters, `brown` ])
-    const cats = jest.fn((parameters = []) => [ ...parameters, `ragdoll` ])
+    const bears = jest.fn((parameters = []) => [...parameters, `brown`])
+    const cats = jest.fn((parameters = []) => [...parameters, `ragdoll`])
 
     const tree = {
       counter: counter,
@@ -85,8 +85,8 @@ describe(`call`, () => {
     const parameters = {
       counter: 1,
       animals: {
-        bears: [ `grizzly` ],
-        cats: [ `birman` ],
+        bears: [`grizzly`],
+        cats: [`birman`],
       },
       untouched: {
         text: `still here`,
@@ -98,8 +98,8 @@ describe(`call`, () => {
     expect(result).toEqual({
       counter: 2,
       animals: {
-        bears: [ `grizzly`, `brown` ],
-        cats: [ `birman`, `ragdoll` ],
+        bears: [`grizzly`, `brown`],
+        cats: [`birman`, `ragdoll`],
       },
     })
   })
@@ -119,7 +119,7 @@ describe(`call`, () => {
     }
 
     const expected = {
-      a: [ 1, `a`, { b: `b` }, `c` ],
+      a: [1, `a`, { b: `b` }, `c`],
     }
 
     expect(
@@ -148,7 +148,7 @@ describe(`call`, () => {
     }
 
     const expected = {
-      a: [ [ 1, `a`, { b: `b` }, `c` ] ],
+      a: [[1, `a`, { b: `b` }, `c`]],
     }
 
     expect(call(tree)).toEqual(expected)
@@ -164,7 +164,7 @@ describe(`call`, () => {
       b: {
         b,
       },
-      c: [ c ],
+      c: [c],
     }
 
     expect(call(tree, undefined, 1, 2, 3)).toEqual({
@@ -172,7 +172,7 @@ describe(`call`, () => {
       b: {
         b: undefined,
       },
-      c: [ undefined ],
+      c: [undefined],
     })
 
     expect(a).toHaveBeenCalledWith(undefined, 1, 2, 3)

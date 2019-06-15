@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 const { create } = require(`../`)
 
 const tree = create({ x: console.log })

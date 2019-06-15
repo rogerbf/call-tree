@@ -10,7 +10,7 @@ const map = (input = {}, callback, path = []) => {
       return callback ? callback(input, path) : input
     case OBJECT:
       return Object.entries(input).reduce(
-        (result, [ key, value ]) =>
+        (result, [key, value]) =>
           Object.assign(result, {
             [key]: map(value, callback, path.concat(key)),
           }),

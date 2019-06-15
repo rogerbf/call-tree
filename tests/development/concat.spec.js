@@ -12,22 +12,22 @@ describe(`concat`, () => {
   test(`shallow concat`, () => {
     const tree = {
       a: () => {},
-      b: [ () => {} ],
+      b: [() => {}],
     }
     const changes = {
       a: () => {},
       b: () => {},
     }
     const expected = {
-      a: [ tree.a, changes.a ],
-      b: [ tree.b[0], changes.b ],
+      a: [tree.a, changes.a],
+      b: [tree.b[0], changes.b],
     }
 
     expect(concat(tree, changes)).toEqual(expected)
 
     expect(tree).toEqual({
       a: expect.any(Function),
-      b: expect.arrayContaining([ expect.any(Function) ]),
+      b: expect.arrayContaining([expect.any(Function)]),
     })
   })
 
@@ -46,18 +46,18 @@ describe(`concat`, () => {
 
     const changes = {
       a: () => {},
-      b: [ () => {}, () => {} ],
+      b: [() => {}, () => {}],
       c: {
         e: () => {},
       },
     }
 
     const expected = {
-      a: [ tree.a, changes.a ],
-      b: [ tree.b, ...changes.b ],
+      a: [tree.a, changes.a],
+      b: [tree.b, ...changes.b],
       c: {
         ...tree.c,
-        e: [ tree.c.e, changes.c.e ],
+        e: [tree.c.e, changes.c.e],
       },
     }
 
@@ -86,14 +86,14 @@ describe(`concat`, () => {
           d: () => {},
         },
       },
-      { c: { d: [ () => {}, () => {} ] } },
+      { c: { d: [() => {}, () => {}] } },
     ]
 
     const expected = {
-      a: [ trees[0].a, trees[2].a ],
+      a: [trees[0].a, trees[2].a],
       b: trees[1].b,
       c: {
-        d: [ trees[2].c.d, ...trees[3].c.d ],
+        d: [trees[2].c.d, ...trees[3].c.d],
       },
     }
 
@@ -104,17 +104,17 @@ describe(`concat`, () => {
     const tree = { a: () => {} }
     const branch = { a: { b: () => {} } }
     const expected = {
-      a: [ tree.a, branch.a ],
+      a: [tree.a, branch.a],
     }
 
     expect(concat(tree, branch)).toEqual(expected)
   })
 
   test(`({ a: [ () => {} ] }, { a: { b: () => {} } })`, () => {
-    const tree = { a: [ () => {} ] }
+    const tree = { a: [() => {}] }
     const branch = { a: { b: () => {} } }
     const expected = {
-      a: [ tree.a[0], branch.a ],
+      a: [tree.a[0], branch.a],
     }
 
     expect(concat(tree, branch)).toEqual(expected)
@@ -124,7 +124,7 @@ describe(`concat`, () => {
     const tree = { a: 1 }
     const branch = { a: { b: () => {} } }
     const expected = {
-      a: [ tree.a, branch.a ],
+      a: [tree.a, branch.a],
     }
 
     expect(concat(tree, branch)).toEqual(expected)
@@ -134,7 +134,7 @@ describe(`concat`, () => {
     const tree = { a: 1 }
     const branch = { a: 2 }
     const expected = {
-      a: [ 1, 2 ],
+      a: [1, 2],
     }
 
     expect(concat(tree, branch)).toEqual(expected)
@@ -160,7 +160,7 @@ describe(`concat`, () => {
     const tree = concat({}, ...steps)
 
     expect(tree).toEqual({
-      a: [ { b: [ steps[0].a.b, steps[1].a.b ] }, steps[2].a ],
+      a: [{ b: [steps[0].a.b, steps[1].a.b] }, steps[2].a],
     })
   })
 })

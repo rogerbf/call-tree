@@ -38,17 +38,17 @@ describe(`includes`, () => {
   test(`([ fn ], fn)`, () => {
     const fn = () => {}
 
-    expect(includes([ fn ], fn)).toEqual(true)
+    expect(includes([fn], fn)).toEqual(true)
   })
 
   test(`([ 0 ], 0)`, () => {
     const n = 0
 
-    expect(includes([ n ], n)).toEqual(true)
+    expect(includes([n], n)).toEqual(true)
   })
 
   test(`([ 'a' ], 0)`, () => {
-    expect(includes([ `a` ], 0)).toEqual(false)
+    expect(includes([`a`], 0)).toEqual(false)
   })
 
   test(`({ a: { b: fn } }, 1)`, () => {
@@ -68,7 +68,7 @@ describe(`includes`, () => {
     const fnA = () => {}
     const fnB = () => {}
 
-    expect(includes({ a: { b: fn, c: [ fnA, fnB ] } }, fnB)).toEqual(true)
+    expect(includes({ a: { b: fn, c: [fnA, fnB] } }, fnB)).toEqual(true)
   })
 
   test(`({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, fnB)`, () => {
@@ -76,7 +76,7 @@ describe(`includes`, () => {
     const fnA = () => {}
     const fnB = () => {}
 
-    expect(includes({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, fnB)).toEqual(true)
+    expect(includes({ a: { b: fn, c: [fnA, { d: fnB }] } }, fnB)).toEqual(true)
   })
 
   test(`({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, { a: { c: { d: fnB } } } )`, () => {
@@ -85,7 +85,7 @@ describe(`includes`, () => {
     const fnB = () => {}
 
     expect(
-      includes({ a: { b: fn, c: [ fnA, { d: fnB } ] } }, { a: { c: { d: fnB } } })
+      includes({ a: { b: fn, c: [fnA, { d: fnB }] } }, { a: { c: { d: fnB } } })
     ).toEqual(true)
   })
 })

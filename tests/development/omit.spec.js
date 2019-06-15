@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import omit from "../../source/library/omit"
 
 describe(`omit`, () => {
@@ -12,7 +13,7 @@ describe(`omit`, () => {
   test(`(tree)`, () => {
     const tree = {
       a: () => {},
-      b: [ () => {} ],
+      b: [() => {}],
     }
 
     expect(omit(tree)).toEqual(tree)
@@ -21,7 +22,7 @@ describe(`omit`, () => {
   test(`(tree, branch) shallow`, () => {
     const tree = {
       a: () => {},
-      b: [ () => {} ],
+      b: [() => {}],
     }
 
     const branch = { a: tree.a }
@@ -30,7 +31,7 @@ describe(`omit`, () => {
     expect(tree).toEqual(
       expect.objectContaining({
         a: expect.any(Function),
-        b: expect.arrayContaining([ expect.any(Function) ]),
+        b: expect.arrayContaining([expect.any(Function)]),
       })
     )
   })
@@ -38,16 +39,16 @@ describe(`omit`, () => {
   test(`(tree, branch, branch) shallow`, () => {
     const tree = {
       a: () => {},
-      b: [ () => {} ],
+      b: [() => {}],
     }
 
-    const branches = [ { a: tree.a }, { b: tree.b } ]
+    const branches = [{ a: tree.a }, { b: tree.b }]
 
     expect(omit(tree, ...branches)).toEqual({})
     expect(tree).toEqual(
       expect.objectContaining({
         a: expect.any(Function),
-        b: expect.arrayContaining([ expect.any(Function) ]),
+        b: expect.arrayContaining([expect.any(Function)]),
       })
     )
   })
@@ -58,7 +59,7 @@ describe(`omit`, () => {
       b: {
         c: {
           d: () => {},
-          e: [ () => {} ],
+          e: [() => {}],
         },
       },
     }
@@ -80,7 +81,7 @@ describe(`omit`, () => {
         b: {
           c: {
             d: expect.any(Function),
-            e: expect.arrayContaining([ expect.any(Function) ]),
+            e: expect.arrayContaining([expect.any(Function)]),
           },
         },
       })
@@ -93,12 +94,12 @@ describe(`omit`, () => {
       b: {
         c: {
           d: () => {},
-          e: [ () => {}, () => {} ],
+          e: [() => {}, () => {}],
         },
       },
     }
 
-    const branch = { b: { c: { e: [ tree.b.c.e[0] ] } } }
+    const branch = { b: { c: { e: [tree.b.c.e[0]] } } }
 
     expect(omit(tree, branch)).toEqual({
       a: tree.a,
@@ -132,19 +133,19 @@ describe(`omit`, () => {
       b: {
         c: {
           d: () => {},
-          e: [ () => {}, () => {}, () => {} ],
+          e: [() => {}, () => {}, () => {}],
         },
       },
     }
 
-    const branch = { b: { c: { e: [ tree.b.c.e[1] ] } } }
+    const branch = { b: { c: { e: [tree.b.c.e[1]] } } }
 
     expect(omit(tree, branch)).toEqual({
       a: tree.a,
       b: {
         c: {
           d: tree.b.c.d,
-          e: [ tree.b.c.e[0], tree.b.c.e[2] ],
+          e: [tree.b.c.e[0], tree.b.c.e[2]],
         },
       },
     })
@@ -194,7 +195,7 @@ describe(`omit`, () => {
 
   test(`(tree, branch) -> tree`, () => {
     const tree = {
-      a: [ () => {}, { b: console.log }, { b: console.log } ],
+      a: [() => {}, { b: console.log }, { b: console.log }],
     }
     const branch = {
       a: { b: console.log },
@@ -207,20 +208,20 @@ describe(`omit`, () => {
 
   test(`(tree, branch) -> tree`, () => {
     const tree = {
-      a: [ () => {}, { b: console.log }, { b: { c: console.log } } ],
+      a: [() => {}, { b: console.log }, { b: { c: console.log } }],
     }
     const branch = {
       a: { b: { c: console.log } },
     }
 
     expect(omit(tree, branch)).toEqual({
-      a: [ tree.a[0], tree.a[1] ],
+      a: [tree.a[0], tree.a[1]],
     })
   })
 
   test(`(tree, branch) -> tree`, () => {
     const tree = {
-      a: [ () => {}, { b: [ console.log, console.log ] }, { b: console.log } ],
+      a: [() => {}, { b: [console.log, console.log] }, { b: console.log }],
     }
 
     const branch = {
@@ -234,7 +235,7 @@ describe(`omit`, () => {
 
   test(`(tree, branch) -> tree`, () => {
     const tree = {
-      a: [ () => {}, { b: [ () => {}, () => {} ] }, { b: () => {} } ],
+      a: [() => {}, { b: [() => {}, () => {}] }, { b: () => {} }],
     }
 
     const branch = {
@@ -242,7 +243,7 @@ describe(`omit`, () => {
     }
 
     expect(omit(tree, branch)).toEqual({
-      a: [ tree.a[0], { b: tree.a[1].b[0] }, { b: tree.a[2].b } ],
+      a: [tree.a[0], { b: tree.a[1].b[0] }, { b: tree.a[2].b }],
     })
   })
 })

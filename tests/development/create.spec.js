@@ -278,12 +278,12 @@ describe(`create`, () => {
     call({ a: `a` })
 
     expect(listener.mock.calls.length).toBe(1)
-    expect(listener.mock.calls[0]).toEqual([ `a` ])
+    expect(listener.mock.calls[0]).toEqual([`a`])
 
     tree({ a: `a`, b: `b` })
     expect(listener.mock.calls.length).toBe(3)
-    expect(listener.mock.calls[1]).toEqual([ `a` ])
-    expect(listener.mock.calls[2]).toEqual([ `b` ])
+    expect(listener.mock.calls[1]).toEqual([`a`])
+    expect(listener.mock.calls[2]).toEqual([`b`])
   })
 
   test(`clear`, () => {
@@ -306,7 +306,7 @@ describe(`create`, () => {
     const removeFirst = tree.attach({ a: listener })
     const removeSecond = tree.attach({ a: listener })
 
-    expect(tree.current).toEqual({ a: [ listener, listener ] })
+    expect(tree.current).toEqual({ a: [listener, listener] })
 
     removeFirst()
 
@@ -337,7 +337,7 @@ describe(`create`, () => {
     expect(tree.includes(listener)).toEqual(true)
     expect(tree.includes({ a: listener })).toEqual(true)
     expect(tree.includes({ b: listener })).toEqual(false)
-    
+
     removeFirst()
 
     expect(tree.includes(listener)).toEqual(true)

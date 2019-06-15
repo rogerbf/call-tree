@@ -5,7 +5,7 @@ const call = (input, parameters, ...args) =>
     ? input.map(x => call(x, parameters, ...args))
     : typeof input === `object`
     ? Object.entries(input).reduce(
-        (result, [ key, input ]) =>
+        (result, [key, input]) =>
           Object.assign(result || {}, {
             [key]:
               typeof input === `function`

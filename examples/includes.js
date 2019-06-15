@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 const { includes } = require(`../`)
 
 const e = () => {}
@@ -8,7 +9,7 @@ const tree = {
     b: () => {},
   },
   c: {
-    d: [ { e } ],
+    d: [{ e }],
   },
 }
 

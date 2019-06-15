@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 const { difference } = require(`simple-difference`)
 const { mask } = require(`mask-properties`)
 const { create, call } = require(`../`)

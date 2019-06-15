@@ -9,7 +9,7 @@ const includes = (input, test) => {
 
   if (typeOfInput === OBJECT) {
     if (typeOfTest === OBJECT) {
-      return Object.entries(input).reduce((result, [ key, value ]) => {
+      return Object.entries(input).reduce((result, [key, value]) => {
         if (test.hasOwnProperty(key)) {
           return result || includes(value, test[key])
         } else {

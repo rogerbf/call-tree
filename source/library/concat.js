@@ -1,6 +1,6 @@
 const concat = (input, addition) =>
   Object.entries(addition).reduce(
-    (result, [ key, value ]) =>
+    (result, [key, value]) =>
       Object.assign(result, {
         [key]: !result.hasOwnProperty(key)
           ? value
