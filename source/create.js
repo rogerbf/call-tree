@@ -1,25 +1,25 @@
-import { difference } from "simple-difference";
-import call from "./library/call";
-import concat from "./library/concat";
-import includes from "./library/includes";
-import map from "./library/map";
-import omit from "./library/omit";
+import { difference } from "simple-difference"
+import call from "./library/call"
+import concat from "./library/concat"
+import includes from "./library/includes"
+import map from "./library/map"
+import omit from "./library/omit"
 
 const toString = value => Object.prototype.toString.call(value)
 const OBJECT = toString({})
 
 const create = (initial = {}) => {
   let index = []
-  
+
   const wrap = fn => {
     const wrapped = (...args) => fn(...args)
-    index.push([ wrapped, fn ])
-    
+    index.push([wrapped, fn])
+
     return wrapped
   }
-  
-  const unwrap = wrapped => index.find(([ w ]) => w === wrapped)[1]
-  
+
+  const unwrap = wrapped => index.find(([w]) => w === wrapped)[1]
+
   let current = map(initial, wrap)
   let next = current
 
@@ -47,7 +47,7 @@ const create = (initial = {}) => {
     const type = toString(tree)
 
     if (type !== OBJECT) {
-      throw new Error(`Expected ${ OBJECT }, received ${ type }.`)
+      throw new Error(`Expected ${OBJECT}, received ${type}.`)
     }
 
     let attached = true
@@ -67,7 +67,7 @@ const create = (initial = {}) => {
       snapshot()
 
       next = omit(next, wrapped)
-      map(wrapped, fn => index.splice(index.find(([ w ]) => w === fn), 1))
+      map(wrapped, fn => index.splice(index.find(([w]) => w === fn), 1))
 
       return tree
     }
@@ -92,7 +92,7 @@ const create = (initial = {}) => {
     snapshot()
 
     if (typeof x === `function`) {
-      return Boolean(index.find(([ _, fn ]) => fn === x))
+      return Boolean(index.find(pair => pair[1] === x))
     } else {
       return includes(map(next, unwrap), x)
     }
