@@ -7,21 +7,22 @@ const tree = create()
 let state = undefined
 
 const setState = nextState => {
-  call(mask(tree.current, difference(state, nextState)), nextState)
+  call(mask(tree.current, difference(state, nextState).diff), nextState)
   state = nextState
 }
 
 const nameListener = { name: name => console.log(`name:`, name) }
 const homeListener = { places: { home: home => console.log(`home:`, home) } }
 
-tree.attach(nameListener, homeListener)
+const detachNameListener = tree.attach(nameListener)
+tree.attach(homeListener)
 
 setState({ name: `Jon` })
 // name: Jon
 setState({ name: `Jon`, places: { home: `Mars` } })
 // home: Mars
 
-tree.detach(nameListener)
+detachNameListener()
 
 setState({ name: `Lo`, places: { home: `Earth` } })
 // home Earth
