@@ -1,9 +1,9 @@
-import { difference } from "simple-difference"
-import call from "./library/call"
-import concat from "./library/concat"
-import includes from "./library/includes"
-import map from "./library/map"
-import omit from "./library/omit"
+import { difference } from 'simple-difference'
+import call from './library/call'
+import concat from './library/concat'
+import includes from './library/includes'
+import map from './library/map'
+import omit from './library/omit'
 
 const toString = value => Object.prototype.toString.call(value)
 const OBJECT = toString({})
@@ -67,7 +67,12 @@ const create = (initial = {}) => {
       snapshot()
 
       next = omit(next, wrapped)
-      map(wrapped, fn => index.splice(index.find(([w]) => w === fn), 1))
+      map(wrapped, fn =>
+        index.splice(
+          index.find(([w]) => w === fn),
+          1,
+        ),
+      )
 
       return tree
     }

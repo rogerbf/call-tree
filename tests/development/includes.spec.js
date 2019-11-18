@@ -1,4 +1,4 @@
-import includes from "../../source/library/includes"
+import includes from '../../source/library/includes'
 
 describe(`includes`, () => {
   test(`typeof`, () => {
@@ -85,7 +85,10 @@ describe(`includes`, () => {
     const fnB = () => {}
 
     expect(
-      includes({ a: { b: fn, c: [fnA, { d: fnB }] } }, { a: { c: { d: fnB } } })
+      includes(
+        { a: { b: fn, c: [fnA, { d: fnB }] } },
+        { a: { c: { d: fnB } } },
+      ),
     ).toEqual(true)
   })
 })

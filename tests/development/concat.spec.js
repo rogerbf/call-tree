@@ -1,4 +1,4 @@
-import concat from "../../source/library/concat"
+import concat from '../../source/library/concat'
 
 describe(`concat`, () => {
   test(`typeof`, () => {

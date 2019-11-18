@@ -16,7 +16,7 @@ const call = (input, parameters, ...args) =>
                 ? call(input, (parameters || {})[key], ...args)
                 : input,
           }),
-        undefined
+        undefined,
       )
     : input
 

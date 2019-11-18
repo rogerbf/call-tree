@@ -12,7 +12,7 @@ const concat = (input, addition) =>
           ? concat(result[key], value)
           : [].concat(result[key], value),
       }),
-    { ...input }
+    { ...input },
   )
 
 export default (tree = {}, ...trees) =>

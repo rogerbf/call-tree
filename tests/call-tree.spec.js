@@ -1,4 +1,4 @@
-import { call, concat, create, includes, map, omit } from "../"
+import { call, concat, create, includes, map, omit } from '../'
 
 describe(`create`, () => {
   test(`typeof`, () => {

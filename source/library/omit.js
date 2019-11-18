@@ -33,9 +33,9 @@ const omit = (input, redaction) => {
                   ? Object.values(x).filter(value =>
                       type(value) === OBJECT
                         ? Object.keys(value).length > 0
-                        : true
+                        : true,
                     ).length
-                  : true
+                  : true,
               )
 
               return Object.assign(updated, {
@@ -51,7 +51,7 @@ const omit = (input, redaction) => {
           return updated
         }
       },
-      { ...input }
+      { ...input },
     )
   } else if (type(input) === ARRAY) {
     let updated = []

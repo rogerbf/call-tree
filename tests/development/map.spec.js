@@ -1,4 +1,4 @@
-import map from "../../source/library/map"
+import map from '../../source/library/map'
 
 describe(`map`, () => {
   test(`typeof`, () => {
@@ -24,7 +24,10 @@ describe(`map`, () => {
     const callback = jest.fn(fn => fn)
 
     expect(map(tree, callback)).toEqual(tree)
-    expect(callback.mock.calls).toEqual([[tree.a, [`a`]], [tree.b, [`b`]]])
+    expect(callback.mock.calls).toEqual([
+      [tree.a, [`a`]],
+      [tree.b, [`b`]],
+    ])
   })
 
   test(`({ a: [ () => {}, () => {} ] })`, () => {

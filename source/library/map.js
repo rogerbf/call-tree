@@ -14,7 +14,7 @@ const map = (input = {}, callback, path = []) => {
           Object.assign(result, {
             [key]: map(value, callback, path.concat(key)),
           }),
-        {}
+        {},
       )
     case ARRAY:
       return input.map(value => map(value, callback, path))

@@ -1,4 +1,4 @@
-import call from "../../source/library/call"
+import call from '../../source/library/call'
 
 describe(`call`, () => {
   test(`typeof`, () => {
@@ -128,7 +128,7 @@ describe(`call`, () => {
           b: `b`,
           c: `c`,
         },
-      })
+      }),
     ).toEqual(expected)
     expect(b).toHaveBeenCalledWith(`b`)
   })

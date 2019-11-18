@@ -1,4 +1,4 @@
-import create from "../../source/create"
+import create from '../../source/create'
 
 describe(`create`, () => {
   it(`is a function`, () => {
@@ -12,7 +12,7 @@ describe(`create`, () => {
     expect(typeof tree.attach).toEqual(`function`)
     expect(typeof tree.prepare).toEqual(`function`)
     expect(typeof tree.clear).toEqual(`function`)
-    expect(Object.prototype.hasOwnProperty.call(tree, "current")).toEqual(true)
+    expect(Object.prototype.hasOwnProperty.call(tree, 'current')).toEqual(true)
   })
 
   it(`throws if branch is not an object`, () => {
@@ -158,7 +158,7 @@ describe(`create`, () => {
           listener2()
           detachAll()
         },
-      })
+      }),
     )
     detachHandles.push(tree.attach({ a: () => listener3() }))
 

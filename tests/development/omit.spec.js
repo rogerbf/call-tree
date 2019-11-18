@@ -1,5 +1,5 @@
 /* eslint no-console: 0 */
-import omit from "../../source/library/omit"
+import omit from '../../source/library/omit'
 
 describe(`omit`, () => {
   test(`typeof`, () => {
@@ -32,7 +32,7 @@ describe(`omit`, () => {
       expect.objectContaining({
         a: expect.any(Function),
         b: expect.arrayContaining([expect.any(Function)]),
-      })
+      }),
     )
   })
 
@@ -49,7 +49,7 @@ describe(`omit`, () => {
       expect.objectContaining({
         a: expect.any(Function),
         b: expect.arrayContaining([expect.any(Function)]),
-      })
+      }),
     )
   })
 
@@ -84,7 +84,7 @@ describe(`omit`, () => {
             e: expect.arrayContaining([expect.any(Function)]),
           },
         },
-      })
+      }),
     )
   })
 
@@ -123,7 +123,7 @@ describe(`omit`, () => {
             ]),
           },
         },
-      })
+      }),
     )
   })
 
@@ -163,7 +163,7 @@ describe(`omit`, () => {
             ]),
           },
         },
-      })
+      }),
     )
   })
 
