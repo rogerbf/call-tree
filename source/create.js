@@ -24,7 +24,7 @@ const create = (initial = {}) => {
   let next = current
 
   const snapshot = () => {
-    if (difference(next, current) === null) {
+    if (difference(next, current).equal) {
       next = { ...current }
     }
   }
