@@ -10,7 +10,7 @@ const includes = (input, test) => {
   if (typeOfInput === OBJECT) {
     if (typeOfTest === OBJECT) {
       return Object.entries(input).reduce((result, [key, value]) => {
-        if (test.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(test, key)) {
           return result || includes(value, test[key])
         } else {
           return result || false

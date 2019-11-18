@@ -2,7 +2,7 @@ const concat = (input, addition) =>
   Object.entries(addition).reduce(
     (result, [key, value]) =>
       Object.assign(result, {
-        [key]: !result.hasOwnProperty(key)
+        [key]: !Object.prototype.hasOwnProperty.call(result, key)
           ? value
           : typeof value === `function` || Array.isArray(value)
           ? [].concat(result[key], value)

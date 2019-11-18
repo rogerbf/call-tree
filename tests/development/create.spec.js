@@ -12,7 +12,7 @@ describe(`create`, () => {
     expect(typeof tree.attach).toEqual(`function`)
     expect(typeof tree.prepare).toEqual(`function`)
     expect(typeof tree.clear).toEqual(`function`)
-    expect(tree.hasOwnProperty(`current`)).toEqual(true)
+    expect(Object.prototype.hasOwnProperty.call(tree, "current")).toEqual(true)
   })
 
   it(`throws if branch is not an object`, () => {

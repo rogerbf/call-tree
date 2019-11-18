@@ -8,7 +8,7 @@ const omit = (input, redaction) => {
   if (type(input) === OBJECT) {
     return Object.entries(redaction).reduce(
       (updated, [key, value]) => {
-        if (updated.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(updated, key)) {
           if (type(value) === FUNCTION || type(value) === ARRAY) {
             const redacted = [].concat(value)
             const filtered = []
