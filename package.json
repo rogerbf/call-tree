@@ -1,6 +1,6 @@
 {
   "name": "call-tree",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "call an object with deeply nested functions",
   "main": "build/call-tree.cjs.js",
   "module": "build/call-tree.esm.js",
