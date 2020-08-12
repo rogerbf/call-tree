@@ -1,5 +1,4 @@
-/* eslint no-console: 0 */
-const { includes } = require(`../`)
+const { includes } = require("../")
 
 const e = () => {}
 const f = () => {}
@@ -13,5 +12,6 @@ const tree = {
   },
 }
 
-console.log(includes(tree, e)) // true
-console.log(includes(tree, f)) // false
+console.log(includes(e, tree)) // true
+console.log(includes({ c: { d: { e } } }, tree)) // true
+console.log(includes(f, tree)) // false

@@ -1,28 +1,27 @@
-/* eslint no-console: 0 */
-const { difference } = require(`simple-difference`)
-const { mask } = require(`mask-properties`)
-const { create, call } = require(`../`)
+const { mergeWith, concat, omit } = require("../")
 
-const tree = create()
-let state = undefined
+let tree = {}
 
-const setState = nextState => {
-  call(mask(tree.current, difference(state, nextState).diff), nextState)
-  state = nextState
+const broadcast = (state) => {
+  mergeWith((parameters, fn) => fn(parameters), state, tree)
 }
 
-const nameListener = { name: name => console.log(`name:`, name) }
-const homeListener = { places: { home: home => console.log(`home:`, home) } }
+const nameListener = { name: (name) => console.log("name:", name) }
+const homeListener = { places: { home: (home) => console.log("home:", home) } }
 
-const detachNameListener = tree.attach(nameListener)
-tree.attach(homeListener)
+const listeners = [nameListener, homeListener]
 
-setState({ name: `Jon` })
+listeners.forEach((listener) => {
+  tree = concat(listener, tree)
+})
+
+broadcast({ name: "Jon" })
 // name: Jon
-setState({ name: `Jon`, places: { home: `Mars` } })
+broadcast({ name: "Jon", places: { home: "Mars" } })
 // home: Mars
 
-detachNameListener()
+// remove nameListener from tree
+tree = omit(nameListener, tree)
 
-setState({ name: `Lo`, places: { home: `Earth` } })
+broadcast({ name: "Lo", places: { home: "Earth" } })
 // home Earth

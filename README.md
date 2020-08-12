@@ -1,85 +1,27 @@
 # call-tree
 
-```javascript
-import { create } from "call-tree"
+An exploratory library for working objects containing functions.
 
-const tree = create({ x: console.log })
+## `concat(object, object)`
 
-const parameters = {
-  x: `x`,
-  y: {
-    z: `z`,
-  },
-}
-
-tree.attach({ y: { z: console.log } })
-
-tree(parameters, 1, 2, 3)
-// x 1 2 3
-// z 1 2 3
-
-tree.attach({ y: console.log })
-
-tree(parameters)
-// x
-// z
-// { z: 'z' }
-```
-
-## api
-
-### `create([tree])`
-
-#### `.attach([ ...branches ])`
-
-#### `.prepare(fn)`
-
-#### `.clear()`
-
-#### `.includes(fn)`
-
-#### `.current`
-
-### `call(tree[,parameters[, ...args ]])`
-
-```javascript
-import { call } from "call-tree"
-```
-
-### `concat(tree[, ...trees])`
+Creates an object with values from both objects without adding duplicates where both nodes are the same function.
 
 ```javascript
 import { concat } from "call-tree"
 
-concat(
-  { a: () => {} },
-  { a: () => {}, b: () => {} }
-)
+concat({ a: () => {}, b: () => {} }, { a: () => {} })
 // {
 //   a: [
 //     () => {},
 //     () => {}
 //   ],
-//   b: () => {}
+//   b: () => {}
 // }
 ```
 
-### `omit(tree[, ...trees])`
+## `includes(value, object)`
 
-```javascript
-import { omit } from "call-tree"
-
-const a = () => {}
-const b = () => {}
-
-omit(
-  { x: [ a, b ] },
-  { x: b }
-)
-// { x: a }
-```
-
-### `includes(tree, branch)`
+Returns `true` if value can be found in object, `false` if not. The value can either be a function or an object with a single leaf node of type function.
 
 ```javascript
 import { includes } from "call-tree"
@@ -89,44 +31,92 @@ const f = () => {}
 
 const tree = {
   a: {
-    b: () => {}
+    b: () => {},
   },
   c: {
-    d: [ { e } ]
-  }
+    d: [{ e }],
+  },
 }
 
-includes(tree, e) // true
-includes(tree, f) // false
+includes(e, tree) // true
+includes({ c: { d: { e } } }) // true
+includes(f, tree) // false
 ```
 
-### `map(tree, callback((fn, path) => {})`
+## `map(callback, object)`
+
+Creates an object with the result of calling the callback with any function found in object.
+
+The callback is called with two arguments: `(function, { key, path })`.
 
 ```javascript
 import { map } from "call-tree"
 
 const tree = {
   a: {
-    b: path => path,
+    b: (path) => path,
   },
   c: {
-    d: [ { e: path => path } ],
+    d: [{ e: (path) => path }],
   },
 }
 
-const callback = (fn, path) => fn(path)
+const callback = (fn, { path }) => fn(path)
 
-console.log(map(tree, callback))
+console.log(map(callback, tree))
 // {
 //   a: {
-//     b: [ `a`, `b` ],
+//     b: [ "a", "b" ],
 //   },
 //   c: {
 //     d: [
 //       {
-//         e: [ `c`, `d`, `e` ],
+//         e: [ "c", "d", "e" ],
 //       },
 //     ],
 //   },
 // }
+```
+
+## `mergeWith(callback, object, object)`
+
+Creates an object with the merged values of the inputs customized by the callback, which is called for every function found within the second object.
+
+The callback is called with two arguments: `(firstObjectValueAtKey, function)`.
+
+```javascript
+import { mergeWith } from "call-tree"
+
+const callback = (data, fn) => fn(data)
+
+const tree = {
+  timestamp: (ms) => new Date(ms).toISOString(),
+  payload: (data) => JSON.stringify(data),
+}
+
+console.log(
+  mergeWith(
+    callback,
+    { timestamp: Date.now(), payload: { message: "hello" } },
+    tree
+  )
+)
+// {
+//   timestamp: '2020-08-03T20:00:42.924Z',
+//   payload: '{"message":"hello"}'
+// }
+```
+
+## `omit(value, object)`
+
+Creates an object with the specified value omitted. Assuming value has a single leaf node of type function.
+
+```javascript
+import { omit } from "call-tree"
+
+const a = () => {}
+const b = () => {}
+
+omit({ x: b }, { x: [a, b] })
+// { x: a }
 ```

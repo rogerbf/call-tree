@@ -1,62 +1,44 @@
 {
   "name": "call-tree",
-  "version": "2.2.4",
-  "description": "call an object with deeply nested functions",
-  "main": "build/call-tree.cjs.js",
-  "module": "build/call-tree.esm.js",
-  "browser": "build/call-tree.umd.js",
+  "version": "3.0.0",
+  "description": "A library for working objects containing functions",
+  "main": "index.js",
+  "module": "source/index.js",
+  "browser": "source/index.js",
   "scripts": {
-    "clean": "rimraf build coverage",
-    "prepare": "npm run clean && npm test",
-    "build": "rollup -c",
-    "pretest": "npm run lint && npm run build",
-    "test": "jest",
-    "test:development": "NODE_ENV=development jest",
-    "develop": "npm run test:development -- --watch",
-    "coverage": "npm run test:development -- --coverage",
-    "lint": "eslint --fix . && echo 'Done linting.'"
+    "format": "prettier --write '**/*.js'",
+    "lint": "eslint --fix .",
+    "pretest": "npm run format && npm run lint",
+    "test": "ava",
+    "coverage": "c8 --reporter=html --reporter=text --exclude tests npm run test",
+    "develop": "ava --watch",
+    "prepare": "npm run test"
   },
-  "keywords": [
-    "call",
-    "tree",
-    "object",
-    "reducer",
-    "deep",
-    "subscriptions"
-  ],
-  "files": [
-    "build"
-  ],
-  "author": "rogerbf <roger@bergfa.lk> (https://bergfa.lk/)",
+  "keywords": [],
+  "author": "Roger Berg Falk <roger@bergfa.lk> (https://bergfa.lk/)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/plugin-transform-modules-commonjs": "7.10.1",
-    "@babel/preset-env": "7.10.2",
-    "babel-eslint": "10.1.0",
-    "babel-jest": "26.0.1",
-    "eslint": "7.2.0",
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "jest": "26.0.1",
-    "mask-properties": "1.0.2",
+    "ava": "3.11.1",
+    "c8": "7.3.0",
+    "eslint": "7.6.0",
     "prettier": "2.0.5",
-    "rimraf": "3.0.2",
-    "rollup": "2.16.1",
-    "rollup-plugin-babel": "4.4.0",
-    "rollup-plugin-commonjs": "10.1.0",
-    "rollup-plugin-node-resolve": "5.2.0"
+    "sinon": "9.0.3"
   },
   "directories": {
     "example": "examples",
     "test": "tests"
   },
   "dependencies": {
-    "simple-difference": "2.0.2"
+    "esm": "3.2.25"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rogerbf/call-tree.git"
   },
-  "homepage": "https://github.com/rogerbf/call-tree#readme"
+  "homepage": "https://github.com/rogerbf/call-tree#readme",
+  "ava": {
+    "require": [
+      "esm"
+    ]
+  }
 }

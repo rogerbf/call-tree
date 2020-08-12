@@ -1,31 +1,15 @@
-const type = value => Object.prototype.toString.call(value)
+export const includes = (left, right) =>
+  Array.isArray(right)
+    ? right.find((value) => includes(left, value)) !== undefined
+    : typeof left === "object" && typeof right === "object"
+    ? Object.entries(right).reduce(
+        (result, [key, value]) =>
+          Object.prototype.hasOwnProperty.call(left, key)
+            ? result || includes(left[key], value)
+            : result || false,
 
-const OBJECT = type({})
-const ARRAY = type([])
-
-const includes = (input, test) => {
-  const typeOfInput = type(input)
-  const typeOfTest = type(test)
-
-  if (typeOfInput === OBJECT) {
-    if (typeOfTest === OBJECT) {
-      return Object.entries(input).reduce((result, [key, value]) => {
-        if (Object.prototype.hasOwnProperty.call(test, key)) {
-          return result || includes(value, test[key])
-        } else {
-          return result || false
-        }
-      }, false)
-    } else {
-      const result = Object.values(input).find(value => includes(value, test))
-      return Boolean(result) || result === 0 ? true : false
-    }
-  } else if (typeOfInput === ARRAY) {
-    const result = input.find(value => includes(value, test))
-    return Boolean(result) || result === 0 ? true : false
-  } else {
-    return input === test
-  }
-}
-
-export default includes
+        false
+      )
+    : typeof right === "object"
+    ? Object.values(right).find((value) => includes(left, value)) !== undefined
+    : left === right

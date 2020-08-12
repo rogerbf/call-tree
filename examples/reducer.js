@@ -1,9 +1,8 @@
-/* eslint no-console: 0 */
-const { call } = require(`../`)
+const { map } = require("../")
 
 const reducer = {
-  name: (state = `Pike`, action = {}) => {
-    if (action.type === `RENAME`) {
+  name: (state = "Pike", action = {}) => {
+    if (action.type === "RENAME") {
       return action.payload
     } else {
       return state
@@ -11,16 +10,18 @@ const reducer = {
   },
 }
 
-const reduce = call.bind(null, reducer)
+let state
 
-const initialState = reduce()
-
-const action = {
-  type: `RENAME`,
-  payload: `Kirk`,
+const reduce = (action) => {
+  state = map((fn) => fn(state, action), reducer)
+  console.log(state)
 }
 
-const nextState = reduce(initialState, action)
+reduce()
 
-console.log(`initial: `, initialState)
-console.log(`next:    `, nextState)
+const action = {
+  type: "RENAME",
+  payload: "Kirk",
+}
+
+reduce(action)
