@@ -4,13 +4,15 @@ export const mergeWith = (callback, left, right) =>
     : Array.isArray(right)
     ? right.map((x) => mergeWith(callback, left, x))
     : typeof right === "object"
-    ? Object.keys(left).reduce(
+    ? Object.keys(right).reduce(
         (result, key) =>
-          right[key] && left[key] !== undefined
-            ? Object.assign(result || {}, {
-                [key]: mergeWith(callback, left[key], right[key]),
-              })
-            : result,
+          Object.assign(result || {}, {
+            [key]: mergeWith(
+              callback,
+              left ? left[key] : undefined,
+              right[key]
+            ),
+          }),
         undefined
       )
     : undefined

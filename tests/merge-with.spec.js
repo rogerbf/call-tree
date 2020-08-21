@@ -46,3 +46,15 @@ test("returns the expected result", (t) => {
 
   t.deepEqual(actual, expected)
 })
+
+test("function is called with undefined", (t) => {
+  const callback = (parameters, fn) => fn(parameters)
+  const fn = sinon.fake()
+  const tree = { a: { b: fn } }
+
+  mergeWith(callback, undefined, tree)
+
+  const expected = [[undefined]]
+
+  t.deepEqual(fn.args, expected)
+})
