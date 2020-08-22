@@ -7,14 +7,10 @@ const tree = {
   payload: (data) => JSON.stringify(data),
 }
 
-console.log(
-  mergeWith(
-    callback,
-    { timestamp: Date.now(), payload: { message: "hello" } },
-    tree
-  )
-)
+const data = { timestamp: 1598076530245, payload: { message: "hello" } }
+
+console.log(mergeWith(callback, data, tree))
 // {
-//   timestamp: '2020-08-03T20:00:42.924Z',
+//   timestamp: '2020-08-22T06:08:50.245Z',
 //   payload: '{"message":"hello"}'
 // }
