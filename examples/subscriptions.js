@@ -3,7 +3,11 @@ const { mergeWith, concat, omit } = require("../")
 let tree = {}
 
 const broadcast = (state) => {
-  mergeWith((parameters, fn) => fn(parameters), state, tree)
+  mergeWith(
+    (parameters, fn) => parameters !== undefined && fn(parameters),
+    state,
+    tree
+  )
 }
 
 const nameListener = { name: (name) => console.log("name:", name) }
