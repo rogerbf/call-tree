@@ -1,15 +1,6 @@
-import {
-  getDefaultObjValue,
-  omitArray,
-  omitFunction,
-  omitObject,
-} from "./helpers.js"
+import { maybeCopy, omitArray, omitFunction, omitObject } from "./helpers.js"
 
-export const omit = (
-  left,
-  right,
-  { obj = getDefaultObjValue(right), key } = {}
-) =>
+export const omit = (left, right, { obj = maybeCopy(right), key } = {}) =>
   typeof left === "function"
     ? omitFunction({ left, obj, key })
     : Array.isArray(right)

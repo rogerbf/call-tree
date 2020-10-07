@@ -25,7 +25,7 @@ export const omitFunction = ({ left, obj, key }) =>
     ? omitFunctionFromArray(left, obj, key)
     : omitFunctionFromObject(left, obj, key)
 
-export const getDefaultObjValue = (right) =>
+export const maybeCopy = (right) =>
   Array.isArray(right)
     ? [...right]
     : typeof right === "object"
