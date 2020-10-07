@@ -4,7 +4,7 @@ An exploratory library for working objects containing functions.
 
 ## `concat(object, object)`
 
-Creates an object with values from both objects without adding duplicates where both nodes are the same function.
+Returns an object with all properties from both objects copied. All values will be kept except duplicate functions at the same path.
 
 ```javascript
 import { concat } from "call-tree"
@@ -17,11 +17,16 @@ concat({ a: () => {}, b: () => {} }, { a: () => {} })
 //   ],
 //   b: () => {}
 // }
+
+const fn = () => {}
+
+concat({ a: fn }, { a: fn })
+// { a: fn }
 ```
 
-## `includes(value, object)`
+## `includes(function, object)`
 
-Returns `true` if value can be found in object, `false` if not. The value can either be a function or an object with a single leaf node of type function.
+Checks if function exists in object. The value can either be a function or an object with a single leaf node of type function.
 
 ```javascript
 import { includes } from "call-tree"
@@ -45,7 +50,7 @@ includes(f, tree) // false
 
 ## `map(callback, object)`
 
-Creates an object with the result of calling the callback with any function found in object.
+Returns an object with the result of calling the callback with any function found in object.
 
 The callback is called with two arguments: `(function, { key, path })`.
 
@@ -80,9 +85,9 @@ console.log(map(callback, tree))
 
 ## `mergeWith(callback, object, object)`
 
-Creates an object with the merged values of the inputs customized by the callback, which is called for every function found within the second object.
+Returns an object with the merged values of the inputs customized by the callback, which is called for every function found in the second object.
 
-The callback is called with two arguments: `(firstObjectValueAtKey, function)`.
+The callback is called with two arguments: `(value, function)`. Where `value` is the value at the corresponding path for the function in the first object.
 
 ```javascript
 import { mergeWith } from "call-tree"
@@ -109,7 +114,7 @@ console.log(
 
 ## `omit(value, object)`
 
-Creates an object with the specified value omitted. Assuming value has a single leaf node of type function.
+Returns a partial copy of object excluding value. Assuming value has a single leaf node of type function.
 
 ```javascript
 import { omit } from "call-tree"
