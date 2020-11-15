@@ -1,0 +1,17 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  publish:
+    name: "Publish to NPM"
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mikeal/merge-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
