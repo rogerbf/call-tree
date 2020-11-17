@@ -31,7 +31,7 @@
     "c8": "7.3.5",
     "eslint": "7.13.0",
     "prettier": "2.1.2",
-    "sinon": "9.2.0"
+    "sinon": "9.2.1"
   },
   "directories": {
     "example": "examples",
