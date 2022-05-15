@@ -1,5 +1,5 @@
-const test = require("ava")
-const { includes } = require("../source/library/includes.js")
+import test from "ava"
+import { includes } from "../source/library/includes.js"
 
 test("typeof", (t) => {
   t.is(typeof includes, "function")

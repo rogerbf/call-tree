@@ -1,6 +1,6 @@
-const test = require("ava")
-const sinon = require("sinon")
-const { map } = require("../source/library/map.js")
+import test from "ava"
+import sinon from "sinon"
+import { map } from "../source/library/map.js"
 
 test("it is a function", (t) => {
   t.is(typeof map, "function")

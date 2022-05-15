@@ -2,9 +2,11 @@
   "name": "call-tree",
   "version": "0.0.0-development",
   "description": "A library for working objects containing functions",
-  "main": "index.js",
-  "module": "source/index.js",
-  "browser": "source/index.js",
+  "type": "module",
+  "main": "source/index.js",
+  "files": [
+    "source"
+  ],
   "scripts": {
     "format": "prettier --write '**/*.js'",
     "lint": "eslint --fix .",
@@ -27,27 +29,22 @@
   "author": "Roger Berg Falk <roger@bergfa.lk> (https://bergfa.lk/)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "3.14.0",
-    "c8": "7.4.0",
-    "eslint": "7.16.0",
-    "prettier": "2.2.1",
-    "sinon": "9.2.2"
+    "ava": "4.2.0",
+    "c8": "7.11.2",
+    "eslint": "8.15.0",
+    "prettier": "2.6.2",
+    "sinon": "14.0.0"
   },
   "directories": {
     "example": "examples",
     "test": "tests"
-  },
-  "dependencies": {
-    "esm": "3.2.25"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rogerbf/call-tree.git"
   },
   "homepage": "https://github.com/rogerbf/call-tree#readme",
-  "ava": {
-    "require": [
-      "esm"
-    ]
+  "engines": {
+    "node": ">=12.20.0"
   }
 }

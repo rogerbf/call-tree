@@ -1,4 +1,4 @@
-const { mergeWith } = require("../")
+import { mergeWith } from "../source/index.js"
 
 const callback = (data, fn) => fn(data)
 

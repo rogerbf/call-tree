@@ -1,4 +1,4 @@
-const { map } = require("../")
+import { map } from "../source/index.js"
 
 const reducer = {
   name: (state = "Pike", action = {}) => {

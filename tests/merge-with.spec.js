@@ -1,6 +1,6 @@
-const test = require("ava")
-const sinon = require("sinon")
-const { mergeWith } = require("../source/library/merge-with.js")
+import test from "ava"
+import sinon from "sinon"
+import { mergeWith } from "../source/library/merge-with.js"
 
 test("it is a function", (t) => {
   t.is(typeof mergeWith, "function")
