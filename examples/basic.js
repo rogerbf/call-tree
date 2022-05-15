@@ -1,4 +1,4 @@
-const { map, concat } = require("../")
+import { concat, map } from "../source/index.js"
 
 let tree = { x: console.log }
 

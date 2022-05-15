@@ -1,5 +1,5 @@
-const test = require("ava")
-const { omit } = require("../source/library/omit/index.js")
+import test from "ava"
+import { omit } from "../source/library/omit.js"
 
 const getUniqueFunctions = (n) =>
   Array(n)

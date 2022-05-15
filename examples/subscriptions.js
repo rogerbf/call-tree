@@ -1,4 +1,4 @@
-const { mergeWith, concat, omit } = require("../")
+import { concat, mergeWith, omit } from "../source/index.js"
 
 let tree = {}
 

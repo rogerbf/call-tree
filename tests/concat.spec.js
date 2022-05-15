@@ -1,5 +1,5 @@
-const test = require("ava")
-const { concat } = require("../source/library/concat.js")
+import test from "ava"
+import { concat } from "../source/library/concat.js"
 
 test("typeof", (t) => {
   t.is(typeof concat, "function")

@@ -1,4 +1,4 @@
-const { includes } = require("../")
+import { includes } from "../source/index.js"
 
 const e = () => {}
 const f = () => {}
