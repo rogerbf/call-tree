@@ -29,7 +29,7 @@
   "author": "Roger Berg Falk <roger@bergfa.lk> (https://bergfa.lk/)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "4.2.0",
+    "ava": "4.3.3",
     "c8": "7.11.3",
     "eslint": "8.15.0",
     "prettier": "2.6.2",
